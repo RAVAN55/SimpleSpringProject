@@ -1,0 +1,200 @@
+
+##database used
+
+first thing first, In this project i have used Postgresql as Database. if you really dont want to install alternate 
+database library in spring application (eg. h2 ) just create "homework" databse in postgres database.
+
+after creating homework database in postgres you need to do small changes into "src/main/resources/application.properties" file
+		
+		just change:
+				spring.datasource.username = "name of database owner"
+				spring.datasource.password = "if you have any, set here"
+		
+		thats it. 
+
+
+-------------------------------------------------------------------------------------
+## java version
+
+in this project i used java version 17 make sure you also have java 17. if you have differenct version of java change your pom.xml
+
+file.
+
+you will find pom.xml in your project root directory. inside pom change the "<java.version>" tag to the version of java you have inyour machine.
+
+---------------------------------------------------------------------------------------------
+
+## available apis
+
+
+### full form
+ep = end points
+
+
+## available customers 
+
+aditya
+mohan
+prem
+rohan
+soham
+preeti
+prajakta
+radha
+
+
+## available products
+
+computer
+phone
+watch
+ring
+cycle
+house
+car
+yacht
+bike
+
+
+## available purchase
+
+ring by rajveer
+cycle by pramod
+computer by smita
+house by geeta
+
+
+#################################################### end points for Customer #############################################	
+
+############## To get all the Customer in database
+
+this is GET request
+	ep: http://localhost:8080/user
+	
+
+
+
+############## To get the single Customer by name
+
+this is GET request
+	ep: http://localhost:8080/user/{nameOfCustomer}
+
+
+
+############## To get total reward by Customer
+
+this is GET request
+	ep: http://localhost:8080/user/{nameOfCustomer}/rewards
+
+
+############## To get total rewards for specific month for specific Customer
+
+this is GET request
+	ep: http://localhost:8080/user/{nameOfCustomer}/{month}/{year}/rewards
+
+
+NOTE: month in this ep is string (eg: "march" ) and they are all small character
+NOTE: year in this ep is integer (eg: 2022 ) 
+
+
+############# To add new customer 
+
+this is POST request
+	ep: http://localhost:8080/user
+
+NOTE: this request also required body. body should contain following parameters
+
+name		as string
+age 		as long
+gender 		as string
+phone 		as string
+
+
+eg:	
+	{
+		"name": "aditya",
+		"age": 22,
+		"gender": "male",
+		"phone": "123456789"
+	}
+
+
+#################################################### end points for Products #############################################	
+
+
+############ TO get all available products
+	
+this is GET request
+	ep: http://localhost:8080/product
+
+
+
+#################################################### end points for Purchase #############################################	
+
+
+############ To get all purchase
+
+this is GET request
+	ep: http://localhost:8080/purchase
+
+
+
+############ To get purchase by Customer name
+
+this is GET request
+	ep: http://localhost:8080/purchase/{customername}
+
+
+
+########### TO get purchase by date range for specific customer
+
+this is POST request
+	ep: http://localhost:8080/purchase/{customername}
+
+
+NOTE: this request also required body. body should contain following parameters
+
+
+required parameters = startDate
+		      endDate
+
+eg
+	{
+		"startDate": "2021-02-01",
+		"endDate": "2022-02-01"
+	}
+
+
+
+########### TO get purchase reward by date range for specific customer
+
+this is POST request
+	ep: http://localhost:8080/purchase/{customername}/rewards
+
+
+NOTE: this request also required body. body should contain following parameters
+
+
+required parameters = startDate
+		      endDate
+
+eg
+	{
+		"startDate": "2021-02-01",
+		"endDate": "2022-02-01"
+	}
+
+
+
+############### To purchase product
+
+this is Post request
+	ep: http://localhost:8080/purchase/user/{customername}/product/{productname}
+
+
+
+
+
+
+
+
