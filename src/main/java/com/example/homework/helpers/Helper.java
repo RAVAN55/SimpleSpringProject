@@ -37,8 +37,6 @@ public class Helper {
     @Autowired
     private PurchaseRepository purchaseRepository;
 
-    public Helper() {
-    }
 
     public Product isProductExist(String name) throws ProductNotFoundException {
         Product data = productRepository.findByName(name);
@@ -79,17 +77,6 @@ public class Helper {
         return data;
     }
 
-    /* not sure */
-
-    /* public Integer calculateTotalRewardForUser(String name) {
-        
-        Customer customerData = customerRepository.findByName(name);
-
-        Optional<Purchase> purchaseData = purchaseRepository.findById(customerData.getId());
-        System.out.println(purchaseData);
-        return 10;
-    } */
-
     public void updateRewardForUser(String name) {
         Integer totalReward = 0;
 
@@ -97,9 +84,7 @@ public class Helper {
 
         List<Purchase> purchaseData = purchaseRepository.findByCustomerId(customerData.getId());
 
-        for(Purchase item : purchaseData){
-            totalReward += item.getReward();
-        }
+        totalReward = purchaseData.stream().map(Purchase::getReward).reduce(0,(first,next) -> first+next);
 
         customerRepository.updateCustomerSetRewardForName(totalReward,name);
 
@@ -108,27 +93,22 @@ public class Helper {
     /* method return month in integet with zero based index */
     public Integer getMonthInInteger(String month){
         if(months.contains(month.toUpperCase())){
-            Integer monthInInteger = months.indexOf(month.toUpperCase());
-            return monthInInteger;
+            return months.indexOf(month.toUpperCase());
         }
         return null;
     }
 
     public Boolean isMonthValid(String month){
 
-        if(months.contains(month.toUpperCase())){
-            return true;
-        }
+        return months.contains(month.toUpperCase()) ? true : false;
 
-        return false;
     }
 
     public Integer rewardOfSpecifiedMonthIs(String name, String month, Integer year) {
 
-        Customer customer = new Customer();
+        Customer customer = customerRepository.findByName(name);
 
         /* we could check if customer exist but we already did that in controller so dont need to do that again */
-        customer = customerRepository.findByName(name);
 
         LocalDate start = getMonthStart(month,year);
         LocalDate end = getMonthEnd(month,year);
@@ -189,5 +169,14 @@ public class Helper {
         return total;
     }
 
-    
+
+    public void validateRange(Range range) throws InvalidDateException {
+        if (range.getEndDate().isBefore(range.getStartDate())){
+            throw new InvalidDateException("End date can not be before of start date");
+        }
+
+        if(range.getEndDate().isAfter(LocalDate.now())){
+            throw new InvalidDateException("end date can not be after current date");
+        }
+    }
 }

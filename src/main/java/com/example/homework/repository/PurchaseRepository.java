@@ -7,7 +7,9 @@ import com.example.homework.model.Customer;
 import com.example.homework.model.Purchase;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface PurchaseRepository extends JpaRepository<Purchase,Long>{
     
     public Purchase findByProductname(String productname);

@@ -60,12 +60,12 @@ public class Purchase{
     }
 
 
-    public String getProductname() {
+    public String getProductName() {
         return productname;
     }
 
 
-    public void setProductname(String productname) {
+    public void setProductName(String productname) {
         this.productname = productname;
     }
 
@@ -102,7 +102,7 @@ public class Purchase{
 
     @Override
     public String toString() {
-        return "Purchase [createdat=" + createdat + ", id=" + id + ", price=" + price + ", productname=" + productname
+        return "Purchase [createdat=" + createdat + ", id=" + id + ", price=" + price + ", productname=" +productname
                 + ", reward=" + reward + "]";
     }
 

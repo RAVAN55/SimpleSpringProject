@@ -1,4 +1,4 @@
-package com.example.homework.Controller;
+package com.example.homework.controller;
 
 import java.util.List;
 
