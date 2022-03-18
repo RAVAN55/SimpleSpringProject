@@ -71,13 +71,13 @@ public class CustomerService {
 
     public void createCustomer(CustomerDTO customer) throws UserAlreadyExistException {
 
-        Customer existCustomer = customerRepository.findByName(customer.getName());
+        Customer existCustomer = customerRepository.findByName(customer.getDTOName());
 
         if(existCustomer != null){
-            throw new UserAlreadyExistException(String.format("User with name %s is already exist",customer.getName()));
+            throw new UserAlreadyExistException(String.format("User with name %s is already exist",customer.getDTOName()));
         }
 
-        existCustomer = new Customer(customer.getName(), customer.getAge(), customer.getGender(), customer.getPhone());
+        existCustomer = new Customer(customer.getDTOName(), customer.getDTOAge(), customer.getDTOGender(), customer.getDTOPhone());
 
         customerRepository.save(existCustomer);
 

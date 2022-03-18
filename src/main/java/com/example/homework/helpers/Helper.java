@@ -100,7 +100,7 @@ public class Helper {
 
     public Boolean isMonthValid(String month){
 
-        return months.contains(month.toUpperCase()) ? true : false;
+        return months.contains(month.toUpperCase());
 
     }
 

@@ -14,35 +14,35 @@ public class CustomerDTO {
         this.phone = phone;
     }
 
-    public String getName() {
+    public String getDTOName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setDTOName(String name) {
         this.name = name;
     }
 
-    public Long getAge() {
+    public Long getDTOAge() {
         return age;
     }
 
-    public void setAge(Long age) {
+    public void setDTOAge(Long age) {
         this.age = age;
     }
 
-    public String getGender() {
+    public String getDTOGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setDTOGender(String gender) {
         this.gender = gender;
     }
 
-    public String getPhone() {
+    public String getDTOPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setDTOPhone(String phone) {
         this.phone = phone;
     }
 }
