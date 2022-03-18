@@ -7,6 +7,7 @@ import com.example.homework.helpers.InvalidDateException;
 import com.example.homework.helpers.UserAlreadyExistException;
 import com.example.homework.helpers.UserNotFoundException;
 import com.example.homework.model.Customer;
+import com.example.homework.model.CustomerDTO;
 import com.example.homework.repository.CustomerRepository;
 import com.example.homework.service.CustomerService;
 import org.slf4j.Logger;
@@ -80,30 +81,12 @@ public class CustomerController {
 
         return customerService.getMonthRewardByCustomerName(name,month,year);
 
-        /*Customer customer = customerRepository.findByName(name);
-        boolean validmonth = false;
-
-        if(customer == null){
-            throw new UserNotFoundException(String.format("Customer with name %s no found",name));
-        }
-
-        validmonth = helper.isMonthValid(month);
-
-        if(!validmonth){
-            throw new InvalidMonthException(String.format("%s is not a valid month", month));
-        }
-
-        if(year < 0){
-            throw new Throwable("Negative years not allowed\n");
-        }
-
-        return helper.rewardOfSpecifiedMonthIs(name,month,year);*/
     }
 
 
     /* save customer into database */
     @PostMapping
-    public void saveCustomer(@RequestBody Customer customer) throws UserAlreadyExistException {
+    public void saveCustomer(@RequestBody CustomerDTO customer) throws UserAlreadyExistException {
 
         try{
             customerService.createCustomer(customer);

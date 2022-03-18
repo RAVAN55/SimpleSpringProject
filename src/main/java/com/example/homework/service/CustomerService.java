@@ -6,6 +6,7 @@ import com.example.homework.helpers.InvalidDateException;
 import com.example.homework.helpers.UserAlreadyExistException;
 import com.example.homework.helpers.UserNotFoundException;
 import com.example.homework.model.Customer;
+import com.example.homework.model.CustomerDTO;
 import com.example.homework.model.Purchase;
 import com.example.homework.repository.CustomerRepository;
 import com.example.homework.repository.PurchaseRepository;
@@ -68,7 +69,7 @@ public class CustomerService {
                 .reduce(0, Integer::sum);
     }
 
-    public void createCustomer(Customer customer) throws UserAlreadyExistException {
+    public void createCustomer(CustomerDTO customer) throws UserAlreadyExistException {
 
         Customer existCustomer = customerRepository.findByName(customer.getName());
 
@@ -76,7 +77,9 @@ public class CustomerService {
             throw new UserAlreadyExistException(String.format("User with name %s is already exist",customer.getName()));
         }
 
-        customerRepository.save(customer);
+        existCustomer = new Customer(customer.getName(), customer.getAge(), customer.getGender(), customer.getPhone());
+
+        customerRepository.save(existCustomer);
 
     }
 }
