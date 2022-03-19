@@ -20,13 +20,18 @@ public class CustomerService {
 
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
     private PurchaseRepository purchaseRepository;
 
     @Autowired
     private Helper helper;
+
+    /*this constructor is used in Testing*/
+    public CustomerService(CustomerRepository repository) {
+        this.customerRepository = repository;
+    }
 
     public List<Customer> getCustomer(){
         return  customerRepository.findAll();
