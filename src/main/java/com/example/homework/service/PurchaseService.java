@@ -19,13 +19,19 @@ public class PurchaseService {
 
 
     @Autowired
-    private PurchaseRepository purchaseRepository;
+    private final PurchaseRepository purchaseRepository;
 
     @Autowired
     private Helper helper;
 
     @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+
+    public PurchaseService(PurchaseRepository purchaseRepository,ProductRepository productRepository, Helper helper) {
+        this.purchaseRepository = purchaseRepository;
+        this.productRepository = productRepository;
+        this.helper = helper;
+    }
 
     public List<Purchase> getPurchases() {
        return purchaseRepository.findAll();
@@ -52,7 +58,7 @@ public class PurchaseService {
     public Integer calculateRewardByDateRange(Customer customer, Range range) {
         /*we have to calculate reward in specified range use stream APIs*/
 
-        List<Purchase> purchasesInRange = purchaseRepository.findByCustomerIdAndCreatedatBetween(customer.getId(), range.getStartDate(),range.getEndDate());
+        List<Purchase> purchasesInRange = purchaseRepository.findByCustomerIdAndCreatedatBetween(customer.getId(),range.getStartDate(),range.getEndDate());
 
         return  purchasesInRange.stream().map(Purchase::getReward).reduce(0,(first,next) -> first+next);
 

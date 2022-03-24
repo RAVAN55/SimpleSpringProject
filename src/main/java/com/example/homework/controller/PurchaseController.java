@@ -15,7 +15,6 @@ import com.example.homework.repository.PurchaseRepository;
 import com.example.homework.service.CustomerService;
 import com.example.homework.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,15 +38,22 @@ public class PurchaseController {
     @Autowired
     private Helper helper;
 
+    public PurchaseController(PurchaseRepository purchaseRepository, PurchaseService purchaseService, CustomerService customerService,Helper helper) {
+        this.purchaseRepository = purchaseRepository;
+        this.purchaseService = purchaseService;
+        this.customerService = customerService;
+        this.helper = helper;
+    }
+
     /* get all the purchases */
     @GetMapping
-    public ResponseEntity<List<Purchase>> getPurchase(){
-        return ResponseEntity.ok(purchaseService.getPurchases());
+    public List<Purchase> getPurchase(){
+        return purchaseService.getPurchases();
     }
 
     /* get purchase by customer name */
     @GetMapping("/{name}")
-    public ResponseEntity<List<Purchase>> getPurchaseByCustomerName(@PathVariable("name") String name) throws UserNotFoundException {
+    public List<Purchase> getPurchaseByCustomerName(@PathVariable("name") String name) throws UserNotFoundException {
 
         List<Purchase> purchase;
         Customer customer;
@@ -59,15 +65,15 @@ public class PurchaseController {
             throw new UserNotFoundException(e.getMessage());
         }
 
-        return ResponseEntity.ok(purchase);
+        return purchase;
     }
 
 
     /* get purchase by date Range for specific customer */
     @PostMapping("/{name}")
-    public ResponseEntity<List<Purchase>> getPurchaseByRange(@PathVariable("name") String name, @RequestBody Range range) throws UserNotFoundException, InvalidDateException{
+    public List<Purchase> getPurchaseByRange(@PathVariable("name") String name, @RequestBody Range range) throws UserNotFoundException, InvalidDateException{
 
-        Customer customer = new Customer();
+        Customer customer;
         try{
             customer = customerService.getCustomerByName(name);
             helper.validateRange(range);
@@ -75,13 +81,13 @@ public class PurchaseController {
             throw new UserNotFoundException(e.getMessage());
         }
 
-        return ResponseEntity.ok(purchaseService.findByCustomerIdAndCreatedatBetween(customer.getId(), range.getStartDate(), range.getEndDate()));
+        return purchaseService.findByCustomerIdAndCreatedatBetween(customer.getId(), range.getStartDate(), range.getEndDate());
     }
 
 
     /* get reward by date Range for specific customer */
     @PostMapping("/{name}/rewards")
-    public ResponseEntity<Integer> getRewardsByRange(@PathVariable("name") String name, @RequestBody Range range) throws UserNotFoundException, InvalidDateException {
+    public Integer getRewardsByRange(@PathVariable("name") String name, @RequestBody Range range) throws UserNotFoundException, InvalidDateException {
 
         Customer customer = new Customer();
         try{
@@ -91,7 +97,7 @@ public class PurchaseController {
             throw new UserNotFoundException(e.getMessage());
         }
 
-        return ResponseEntity.ok(purchaseService.calculateRewardByDateRange(customer,range));
+        return purchaseService.calculateRewardByDateRange(customer,range);
 
     }
 

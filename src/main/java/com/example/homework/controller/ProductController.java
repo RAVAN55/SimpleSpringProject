@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.homework.model.Product;
 import com.example.homework.repository.ProductRepository;
 
+import com.example.homework.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +18,15 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private final ProductService service;
+
+    public ProductController(ProductService service) {
+        this.service = service;
+    }
+
     @GetMapping
     public List<Product> getProducts(){
-        return productRepository.findAll();
+        return service.getProducts();
     }
 }
