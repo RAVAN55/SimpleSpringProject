@@ -1,6 +1,6 @@
 # About project
 
-This is reward calculating project. when we purchase products or anything we get some points. 
+This is reward calculating project. when we purchase products we get some points from the company. 
 This project is just a little demonstation of how that work.
 
 
