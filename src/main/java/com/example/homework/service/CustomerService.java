@@ -6,6 +6,7 @@ import com.example.homework.helpers.InvalidDateException;
 import com.example.homework.helpers.UserAlreadyExistException;
 import com.example.homework.helpers.UserNotFoundException;
 import com.example.homework.model.Customer;
+import com.example.homework.model.CustomerDTO;
 import com.example.homework.model.Purchase;
 import com.example.homework.repository.CustomerRepository;
 import com.example.homework.repository.PurchaseRepository;
@@ -74,14 +75,16 @@ public class CustomerService {
 
     }
 
-    public void createCustomer(Customer customer) throws UserAlreadyExistException {
-        Customer existCustomer = customerRepository.findByName(customer.getName());
+    public void createCustomer(CustomerDTO customer) throws UserAlreadyExistException {
+        Customer existCustomer = customerRepository.findByName(customer.getDTOName());
 
         if(existCustomer != null){
-            throw new UserAlreadyExistException(String.format("User with name %s is already exist",customer.getName()));
+            throw new UserAlreadyExistException(String.format("User with name %s is already exist",customer.getDTOName()));
         }
 
-        customerRepository.save(customer);
+        existCustomer = new Customer(customer.getDTOName(), customer.getDTOAge(), customer.getDTOGender(), customer.getDTOPhone());
+
+        customerRepository.save(existCustomer);
 
     }
 }

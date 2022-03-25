@@ -7,9 +7,8 @@ import com.example.homework.helpers.InvalidDateException;
 import com.example.homework.helpers.UserAlreadyExistException;
 import com.example.homework.helpers.UserNotFoundException;
 import com.example.homework.model.Customer;
+import com.example.homework.model.CustomerDTO;
 import com.example.homework.service.CustomerService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +27,6 @@ public class CustomerController {
     @Autowired
     private Helper helper;
 
-    private final Logger log = LoggerFactory.getLogger(CustomerController.class);
 
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
@@ -84,7 +82,7 @@ public class CustomerController {
 
     /* save customer into database */
     @PostMapping
-    public void saveCustomer(@RequestBody Customer customer) throws UserAlreadyExistException {
+    public void saveCustomer(@RequestBody CustomerDTO customer) throws UserAlreadyExistException {
 
         try{
             customerService.createCustomer(customer);
