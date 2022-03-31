@@ -3,15 +3,15 @@ package com.example.homework.dataloader;
 import java.util.Arrays;
 import java.util.List;
 
-import com.example.homework.model.Customer;
-import com.example.homework.repository.CustomerRepository;
+import com.example.homework.customer.data.Customer;
+import com.example.homework.customer.repo.CustomerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 
-@Component
+//@Component
 public class DataLoaderForCustomer implements CommandLineRunner{
 
     private CustomerRepository customerRepository;

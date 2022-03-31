@@ -6,12 +6,11 @@ import com.example.homework.helpers.Helper;
 import com.example.homework.helpers.InvalidDateException;
 import com.example.homework.helpers.ProductNotFoundException;
 import com.example.homework.helpers.UserNotFoundException;
-import com.example.homework.model.Customer;
-import com.example.homework.model.Product;
-import com.example.homework.model.Purchase;
+import com.example.homework.product.data.Product;
+import com.example.homework.purchase.data.Purchase;
 import com.example.homework.model.Range;
-import com.example.homework.repository.PurchaseRepository;
-
+import com.example.homework.purchase.repo.PurchaseRepository;
+import com.example.homework.customer.data.Customer;
 import com.example.homework.service.CustomerService;
 import com.example.homework.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/purchase")
 public class PurchaseController {
-    
+
     @Autowired
     private PurchaseRepository purchaseRepository;
 
@@ -37,6 +36,7 @@ public class PurchaseController {
 
     @Autowired
     private Helper helper;
+
 
     public PurchaseController(PurchaseRepository purchaseRepository, PurchaseService purchaseService, CustomerService customerService,Helper helper) {
         this.purchaseRepository = purchaseRepository;
@@ -60,6 +60,7 @@ public class PurchaseController {
 
         try{
             customer = customerService.getCustomerByName(name);
+
             purchase = purchaseService.getPurchaseByCustomerId(customer.getId());
         }catch(Exception e){
             throw new UserNotFoundException(e.getMessage());
@@ -75,7 +76,9 @@ public class PurchaseController {
 
         Customer customer;
         try{
+
             customer = customerService.getCustomerByName(name);
+
             helper.validateRange(range);
         }catch(Exception e){
             throw new UserNotFoundException(e.getMessage());
@@ -92,6 +95,7 @@ public class PurchaseController {
         Customer customer = new Customer();
         try{
             customer = customerService.getCustomerByName(name);
+
             helper.validateRange(range);
         }catch(Exception e){
             throw new UserNotFoundException(e.getMessage());
@@ -111,12 +115,14 @@ public class PurchaseController {
 
         try{
             productExist = purchaseService.getProductByName(product);
+
             customerExist = customerService.getCustomerByName(name);
+
         }catch(Exception e){
             throw new ProductNotFoundException(e.getMessage());
         }
 
-        purchaseService.purchaseItem(productExist,customerExist);
+        purchaseService.purchaseItem(productExist,customerExist.getId());
 
     }
 }

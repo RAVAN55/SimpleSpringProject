@@ -1,19 +1,21 @@
-package com.example.homework.repository;
+package com.example.homework.customer.repo;
 
-import com.example.homework.model.Customer;
+import com.example.homework.customer.data.Customer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+@Repository
 public interface CustomerRepository extends JpaRepository<Customer,Long>{
     
     public Customer findByName(String name);
 
     @Modifying
     @Transactional
-    @Query("update Customer c set c.reward = :reward where c.name = :name")
-    public void updateCustomerSetRewardForName(@Param("reward") Integer reward,@Param("name") String name);
+    @Query("update Customer c set c.reward = :reward where c.id = :id")
+    public void updateCustomerSetRewardForId(@Param("reward") Integer reward,@Param("id") Long id);
 }

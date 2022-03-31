@@ -1,4 +1,4 @@
-package com.example.homework.model;
+package com.example.homework.product.data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

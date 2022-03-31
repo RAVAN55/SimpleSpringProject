@@ -4,18 +4,17 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import com.example.homework.model.Customer;
-import com.example.homework.model.Product;
-import com.example.homework.model.Purchase;
+import com.example.homework.customer.data.Customer;
+import com.example.homework.product.data.Product;
+import com.example.homework.purchase.data.Purchase;
 import com.example.homework.model.Range;
-import com.example.homework.repository.CustomerRepository;
-import com.example.homework.repository.ProductRepository;
-import com.example.homework.repository.PurchaseRepository;
+import com.example.homework.customer.repo.CustomerRepository;
+import com.example.homework.product.repo.ProductRepository;
+import com.example.homework.purchase.repo.PurchaseRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-
 
 
 public class Helper {
@@ -26,7 +25,7 @@ public class Helper {
         "AUGUST", "SEPTEMBER", "OCTOBER",
         "NOVEMBER", "DECEMBER"
     );
-    
+
 
     @Autowired
     private ProductRepository productRepository;
@@ -67,26 +66,23 @@ public class Helper {
         return total;
     }
 
-    public Customer isCustomerExist(String name) throws UserNotFoundException {
-        Customer data = customerRepository.findByName(name);
 
-        if(data == null){
-            throw new UserNotFoundException("no user with name " + name + " found");
-        }
-
-        return data;
-    }
-
-    public void updateRewardForUser(String name) {
+    public void updateRewardForUser(Long id) {
         Integer totalReward = 0;
 
-        Customer customerData = customerRepository.findByName(name);
+        Customer customer = new Customer();
 
-        List<Purchase> purchaseData = purchaseRepository.findByCustomerId(customerData.getId());
+        Optional<Customer> customerData = customerRepository.findById(id);
+
+        if(customerData.isPresent()){
+            customer = customerData.get();
+        }
+
+        List<Purchase> purchaseData = purchaseRepository.findByCustomerId(customer.getId());
 
         totalReward = purchaseData.stream().map(Purchase::getReward).reduce(0,(first,next) -> first+next);
 
-        customerRepository.updateCustomerSetRewardForName(totalReward,name);
+        customerRepository.updateCustomerSetRewardForId(totalReward,id);
 
     }
 
