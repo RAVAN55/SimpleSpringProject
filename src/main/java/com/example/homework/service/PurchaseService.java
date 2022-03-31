@@ -56,7 +56,6 @@ public class PurchaseService {
     }
 
     public Integer calculateRewardByDateRange(Customer customer, Range range) {
-        /*we have to calculate reward in specified range use stream APIs*/
 
         List<Purchase> purchasesInRange = purchaseRepository.findByCustomerIdAndCreatedatBetween(customer.getId(),range.getStartDate(),range.getEndDate());
 

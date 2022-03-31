@@ -31,7 +31,6 @@ public class ProductDBConfig {
     @Bean(name = "productDatasource")
     @ConfigurationProperties(prefix = "spring.product.datasource")
     public DataSource dataSource(){
-//        return DataSourceBuilder.create().build();
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
         dataSource.setUrl(env.getProperty("spring.product.datasource.jdbc-url"));

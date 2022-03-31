@@ -32,7 +32,6 @@ public class PurchaseDBConfig {
     @Bean(name = "purchaseDatasource")
     @ConfigurationProperties(prefix = "spring.purchase.datasource")
     public DataSource dataSource(){
-//        return DataSourceBuilder.create().build();
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 

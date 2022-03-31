@@ -1,6 +1,5 @@
 package com.example.homework.customer.config;
 
-
 import com.example.homework.customer.data.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,7 +34,6 @@ public class CustomerDBConfig {
     @Bean(name = "customerDatasource")
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource(){
-//        return DataSourceBuilder.create().build();
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUrl(env.getProperty("spring.datasource.jdbc-url"));
@@ -44,7 +42,6 @@ public class CustomerDBConfig {
         dataSource.setDriverClassName(env.getProperty("spring.datasource.driver-class-name","org.postgresql.Driver"));
         return dataSource;
     }
-
 
     @Primary
     @Bean(name = "customerEntityManagerFactory")
@@ -57,7 +54,6 @@ public class CustomerDBConfig {
                 .persistenceUnit("customer")
                 .build();
     }
-
 
     @Primary
     @Bean(name = "customerTransactionManager")

@@ -31,8 +31,8 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    /* all the user in database */
 
+    /* all the user in database */
     @GetMapping
     public List<Customer> getCustomer(){
         return customerService.getCustomer();

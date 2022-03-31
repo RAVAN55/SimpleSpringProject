@@ -43,7 +43,9 @@ public class PurchaseController {
     @Autowired
     private Helper helper;
 
-    private static final String link = "http://localhost:8080/user/{name}";
+    private final String userNotFound = "user with name %s not found";
+
+    private final String link = "https://reward-calculator-reward.herokuapp.com/user/{name}";
 
     public PurchaseController(PurchaseRepository purchaseRepository, PurchaseService purchaseService, CustomerService customerService,Helper helper) {
         this.purchaseRepository = purchaseRepository;
@@ -72,7 +74,7 @@ public class PurchaseController {
             customer = rest.getForObject(uri,Customer.class);
 
             if (customer == null){
-                throw new UserNotFoundException(String.format("user with name %s not found", name));
+                throw new UserNotFoundException(String.format(userNotFound, name));
             }
             purchase = purchaseService.getPurchaseByCustomerId(customer.getId());
         }catch(Exception e){
@@ -96,7 +98,7 @@ public class PurchaseController {
             customer = rest.getForObject(uri,Customer.class);
 
             if (customer == null){
-                throw new UserNotFoundException(String.format("user with name %s not found", name));
+                throw new UserNotFoundException(String.format(userNotFound, name));
             }
 
             helper.validateRange(range);
@@ -120,7 +122,7 @@ public class PurchaseController {
             customer = rest.getForObject(uri,Customer.class);
 
             if (customer == null){
-                throw new UserNotFoundException(String.format("user with name %s not found", name));
+                throw new UserNotFoundException(String.format(userNotFound, name));
             }
 
             helper.validateRange(range);
@@ -148,7 +150,7 @@ public class PurchaseController {
             customerExist = rest.getForObject(uri,Customer.class);
 
             if (customerExist == null){
-                throw new UserNotFoundException(String.format("user with name %s not found", name));
+                throw new UserNotFoundException(String.format(userNotFound, name));
 
             }
 

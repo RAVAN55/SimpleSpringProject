@@ -68,30 +68,6 @@ public class Helper {
         return total;
     }
 
-    public Customer isCustomerExist(String name) throws UserNotFoundException {
-        Customer data = customerRepository.findByName(name);
-
-        if(data == null){
-            throw new UserNotFoundException("no user with name " + name + " found");
-        }
-
-        return data;
-    }
-
-/*
-    public void updateRewardForUser(String name) {
-        Integer totalReward = 0;
-
-        Customer customerData = customerRepository.findByName(name);
-
-        List<Purchase> purchaseData = purchaseRepository.findByCustomerId(customerData.getId());
-
-        totalReward = purchaseData.stream().map(Purchase::getReward).reduce(0,(first,next) -> first+next);
-
-        customerRepository.updateCustomerSetRewardForName(totalReward,name);
-
-    }
-*/
 
     public void updateRewardForUser(Long id) {
         Integer totalReward = 0;

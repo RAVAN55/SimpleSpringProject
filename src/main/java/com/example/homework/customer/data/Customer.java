@@ -1,16 +1,10 @@
 package com.example.homework.customer.data;
 
-
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
-
-import com.example.homework.purchase.data.Purchase;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 
 @Entity
 public class Customer {
@@ -24,16 +18,11 @@ public class Customer {
     private String gender;
     private String phone;
 
-//    @OneToMany(mappedBy = "customer")
-//    @JsonIgnore
-//    private Set<Purchase> purchase;
-
     private Integer reward;
     
 
     public Customer() {
     }
-
 
     public Customer(String name, Long age, String gender, String phone) {
         this.name = name;
@@ -47,78 +36,49 @@ public class Customer {
         return reward;
     }
 
-
     public void setReward(Integer reward) {
         this.reward = reward;
     }
-
 
     public String getName() {
         return name;
     }
 
-
     public void setName(String name) {
         this.name = name;
     }
-
 
     public Long getAge() {
         return age;
     }
 
-
     public void setAge(Long age) {
         this.age = age;
     }
-
 
     public String getGender() {
         return gender;
     }
 
-
     public void setGender(String gender) {
         this.gender = gender;
     }
-
 
     public String getPhone() {
         return phone;
     }
 
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-/*
-    public Set<Purchase> getPurchases(){
-        return purchase;
-    }
-
-    public void addIntoPurchaseSet(Purchase purchase){
-        this.purchase.add(purchase);
-    }
-*/
 
     public Long getId() {
         return id;
     }
 
-
     public void setId(Long id) {
         this.id = id;
     }
-
-/*
-    @Override
-    public String toString() {
-        return "Customer [age=" + age + ", gender=" + gender + ", id=" + id + ", name=" + name + ", purchase=" + purchase
-                + ", phone=" + phone + ", reward=" + reward + "]";
-    }
-*/
-
 
     @Override
     public String toString() {

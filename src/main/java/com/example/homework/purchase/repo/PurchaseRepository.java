@@ -15,6 +15,5 @@ public interface PurchaseRepository extends JpaRepository<Purchase,Long>{
 
     public List<Purchase> findByCustomerId(Long id);
 
-    /* return purchase between specific time range */
     public List<Purchase> findByCustomerIdAndCreatedatBetween(Long id , LocalDate start, LocalDate end);
 }

@@ -28,7 +28,7 @@ public class CustomerService {
     @Autowired
     private final Helper helper;
 
-    /*this constructor is used in Testing*/
+
     public CustomerService(CustomerRepository repository,Helper helper,PurchaseRepository purchaseRepository) {
         this.helper = helper;
         this.customerRepository = repository;

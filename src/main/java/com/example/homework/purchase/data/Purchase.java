@@ -4,9 +4,6 @@ import java.time.LocalDate;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
 
 @Entity
 public class Purchase{
@@ -17,10 +14,6 @@ public class Purchase{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "purchaseIdGenerator")
     private Long id;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-//    @JsonIgnore
-//    @ElementCollection
     private Long customerId;
     private String productname;
     private Integer price;
