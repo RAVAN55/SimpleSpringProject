@@ -27,7 +27,6 @@ public class Helper {
         "NOVEMBER", "DECEMBER"
     );
 
-    private RestTemplate rest;
 
     @Autowired
     private ProductRepository productRepository;
