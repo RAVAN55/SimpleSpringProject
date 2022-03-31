@@ -11,7 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 
-//@Component
+@Component
 public class DataLoaderForCustomer implements CommandLineRunner{
 
     private CustomerRepository customerRepository;
