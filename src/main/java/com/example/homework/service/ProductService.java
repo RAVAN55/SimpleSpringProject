@@ -1,8 +1,8 @@
 package com.example.homework.service;
 
 
-import com.example.homework.model.Product;
-import com.example.homework.repository.ProductRepository;
+import com.example.homework.product.data.Product;
+import com.example.homework.product.repo.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

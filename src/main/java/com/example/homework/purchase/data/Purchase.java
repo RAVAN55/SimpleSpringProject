@@ -1,15 +1,8 @@
-package com.example.homework.model;
+package com.example.homework.purchase.data;
 
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,10 +17,11 @@ public class Purchase{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "purchaseIdGenerator")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    @JsonIgnore
-    private Customer customer;
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+//    @JsonIgnore
+//    @ElementCollection
+    private Long customerId;
     private String productname;
     private Integer price;
     private Integer reward;
@@ -42,12 +36,12 @@ public class Purchase{
     }
 
 
-    public Customer getCustomer() {
-        return customer;
+    public Long getCustomer() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer){
-        this.customer = customer;
+    public void setCustomer(Long id){
+        this.customerId = id;
     }
 
     public Long getId() {

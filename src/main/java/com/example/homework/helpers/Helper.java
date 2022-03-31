@@ -4,18 +4,18 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import com.example.homework.model.Customer;
-import com.example.homework.model.Product;
-import com.example.homework.model.Purchase;
+import com.example.homework.customer.data.Customer;
+import com.example.homework.product.data.Product;
+import com.example.homework.purchase.data.Purchase;
 import com.example.homework.model.Range;
-import com.example.homework.repository.CustomerRepository;
-import com.example.homework.repository.ProductRepository;
-import com.example.homework.repository.PurchaseRepository;
+import com.example.homework.customer.repo.CustomerRepository;
+import com.example.homework.product.repo.ProductRepository;
+import com.example.homework.purchase.repo.PurchaseRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-
+import org.springframework.web.client.RestTemplate;
 
 
 public class Helper {
@@ -26,7 +26,8 @@ public class Helper {
         "AUGUST", "SEPTEMBER", "OCTOBER",
         "NOVEMBER", "DECEMBER"
     );
-    
+
+    private RestTemplate rest;
 
     @Autowired
     private ProductRepository productRepository;
@@ -77,6 +78,7 @@ public class Helper {
         return data;
     }
 
+/*
     public void updateRewardForUser(String name) {
         Integer totalReward = 0;
 
@@ -87,6 +89,26 @@ public class Helper {
         totalReward = purchaseData.stream().map(Purchase::getReward).reduce(0,(first,next) -> first+next);
 
         customerRepository.updateCustomerSetRewardForName(totalReward,name);
+
+    }
+*/
+
+    public void updateRewardForUser(Long id) {
+        Integer totalReward = 0;
+
+        Customer customer = new Customer();
+
+        Optional<Customer> customerData = customerRepository.findById(id);
+
+        if(customerData.isPresent()){
+            customer = customerData.get();
+        }
+
+        List<Purchase> purchaseData = purchaseRepository.findByCustomerId(customer.getId());
+
+        totalReward = purchaseData.stream().map(Purchase::getReward).reduce(0,(first,next) -> first+next);
+
+        customerRepository.updateCustomerSetRewardForId(totalReward,id);
 
     }
 

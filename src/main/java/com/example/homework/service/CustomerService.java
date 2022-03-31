@@ -5,11 +5,11 @@ import com.example.homework.helpers.Helper;
 import com.example.homework.helpers.InvalidDateException;
 import com.example.homework.helpers.UserAlreadyExistException;
 import com.example.homework.helpers.UserNotFoundException;
-import com.example.homework.model.Customer;
+import com.example.homework.customer.data.Customer;
 import com.example.homework.model.CustomerDTO;
-import com.example.homework.model.Purchase;
-import com.example.homework.repository.CustomerRepository;
-import com.example.homework.repository.PurchaseRepository;
+import com.example.homework.purchase.data.Purchase;
+import com.example.homework.customer.repo.CustomerRepository;
+import com.example.homework.purchase.repo.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

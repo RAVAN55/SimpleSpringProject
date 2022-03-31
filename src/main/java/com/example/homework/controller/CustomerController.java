@@ -2,11 +2,8 @@ package com.example.homework.controller;
 
 import java.util.List;
 
-import com.example.homework.helpers.Helper;
-import com.example.homework.helpers.InvalidDateException;
-import com.example.homework.helpers.UserAlreadyExistException;
-import com.example.homework.helpers.UserNotFoundException;
-import com.example.homework.model.Customer;
+import com.example.homework.helpers.*;
+import com.example.homework.customer.data.Customer;
 import com.example.homework.model.CustomerDTO;
 import com.example.homework.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping("/user")
 public class CustomerController {
+
 
     @Autowired
     private final CustomerService customerService;

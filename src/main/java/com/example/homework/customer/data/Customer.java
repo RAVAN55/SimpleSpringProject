@@ -1,17 +1,14 @@
-package com.example.homework.model;
+package com.example.homework.customer.data;
 
 
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
+import com.example.homework.purchase.data.Purchase;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -20,16 +17,16 @@ public class Customer {
     
     @Id
     @SequenceGenerator(name = "CustomerIdGenerator", sequenceName = "CustomerIdGenerator", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CustomerIdGenerator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "CustomerIdGenerator")
     private Long id;
     private String name;
     private Long age;
     private String gender;
     private String phone;
 
-    @OneToMany(mappedBy = "customer")
-    @JsonIgnore 
-    private Set<Purchase> purchase = new HashSet<>();
+//    @OneToMany(mappedBy = "customer")
+//    @JsonIgnore
+//    private Set<Purchase> purchase;
 
     private Integer reward;
     
@@ -95,6 +92,7 @@ public class Customer {
         this.phone = phone;
     }
 
+/*
     public Set<Purchase> getPurchases(){
         return purchase;
     }
@@ -102,6 +100,7 @@ public class Customer {
     public void addIntoPurchaseSet(Purchase purchase){
         this.purchase.add(purchase);
     }
+*/
 
     public Long getId() {
         return id;
@@ -112,11 +111,17 @@ public class Customer {
         this.id = id;
     }
 
+/*
     @Override
     public String toString() {
         return "Customer [age=" + age + ", gender=" + gender + ", id=" + id + ", name=" + name + ", purchase=" + purchase
                 + ", phone=" + phone + ", reward=" + reward + "]";
     }
+*/
 
 
+    @Override
+    public String toString() {
+        return "Customer [age=" + age + ", gender=" + gender + ", id=" + id + ", name=" + name + ", phone=" + phone + ", reward=" + reward + "]";
+    }
 }

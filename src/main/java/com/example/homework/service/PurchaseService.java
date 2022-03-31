@@ -2,14 +2,14 @@ package com.example.homework.service;
 
 import com.example.homework.helpers.Helper;
 import com.example.homework.helpers.ProductNotFoundException;
-import com.example.homework.model.Customer;
-import com.example.homework.model.Product;
-import com.example.homework.model.Purchase;
+import com.example.homework.product.data.Product;
+import com.example.homework.purchase.data.Purchase;
 import com.example.homework.model.Range;
-import com.example.homework.repository.ProductRepository;
-import com.example.homework.repository.PurchaseRepository;
+import com.example.homework.product.repo.ProductRepository;
+import com.example.homework.purchase.repo.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.example.homework.customer.data.Customer;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -64,7 +64,7 @@ public class PurchaseService {
 
     }
 
-    public void purchaseItem(Product product, Customer name) {
+    public void purchaseItem(Product product, Long name) {
         
         Integer rewardForThisPurchase = helper.calculateReward(product.getPrice());
 
@@ -73,7 +73,7 @@ public class PurchaseService {
         purchase.setCreatedat(LocalDate.now());
         purchase.setCustomer(name);
         purchaseRepository.save(purchase);
-        helper.updateRewardForUser(name.getName());
+        helper.updateRewardForUser(name);
 
     }
 }
