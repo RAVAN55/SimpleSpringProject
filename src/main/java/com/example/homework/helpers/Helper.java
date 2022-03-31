@@ -15,7 +15,6 @@ import com.example.homework.product.repo.ProductRepository;
 import com.example.homework.purchase.repo.PurchaseRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.client.RestTemplate;
 
 
 public class Helper {
