@@ -4,11 +4,11 @@ package com.example.homework.customer.data;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "customer")
 public class Customer {
     
     @Id
-    @SequenceGenerator(name = "CustomerIdGenerator", sequenceName = "CustomerIdGenerator", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "CustomerIdGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Long age;

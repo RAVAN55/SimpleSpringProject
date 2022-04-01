@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PurchaseRepository extends JpaRepository<Purchase,Long>{
     
-    public Purchase findByProductname(String productname);
-
     public List<Purchase> findByCustomerId(Long id);
 
     public List<Purchase> findByCustomerIdAndCreatedatBetween(Long id , LocalDate start, LocalDate end);

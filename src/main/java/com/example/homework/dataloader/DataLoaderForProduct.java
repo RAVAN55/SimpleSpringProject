@@ -14,11 +14,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataLoaderForProduct implements CommandLineRunner{
 
-    private ProductRepository productRepository;
+    @Autowired
+    private ProductRepository repo;
 
     @Autowired
-    public DataLoaderForProduct(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public DataLoaderForProduct(ProductRepository repo) {
+        this.repo = repo;
     }
 
     @Override
@@ -35,7 +36,7 @@ public class DataLoaderForProduct implements CommandLineRunner{
             new Product("bike", "i am bike", 1200)
         );
 
-        productRepository.saveAll(data);
+        repo.saveAll(data);
     }
     
 }
