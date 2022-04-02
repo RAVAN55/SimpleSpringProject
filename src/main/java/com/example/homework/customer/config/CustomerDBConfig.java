@@ -24,7 +24,6 @@ import javax.sql.DataSource;
 @EnableJpaRepositories(entityManagerFactoryRef = "customerEntityManagerFactory",
         transactionManagerRef = "customerTransactionManager",
         basePackages = {"com.example.homework.customer.repo"})
-
 public class CustomerDBConfig {
 
     @Autowired
