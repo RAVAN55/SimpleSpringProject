@@ -9,7 +9,7 @@ import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -21,22 +21,19 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "productEntityManagerFactory",
-        transactionManagerRef = "productTransactionManager", basePackages = "com.example.homework.product.repo")
+@EnableMongoRepositories(basePackages = "com.example.homework.product.repo")
 public class ProductDBConfig {
 
     @Autowired
     private Environment env;
 
     @Bean(name = "productDatasource")
-    @ConfigurationProperties(prefix = "spring.product.datasource")
+    @ConfigurationProperties(prefix = "spring.product.data.mongodb")
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setUrl(env.getProperty("spring.product.datasource.jdbc-url"));
-        dataSource.setUsername(env.getProperty("spring.product.datasource.username"));
-        dataSource.setPassword(env.getProperty("spring.product.datasource.password"));
-        dataSource.setDriverClassName(env.getProperty("spring.product.datasource.driver-class-name","org.postgresql.Driver"));
+        dataSource.setUsername(env.getProperty("spring.product.data.mongodb.username"));
+        dataSource.setPassword(env.getProperty("spring.product.data.mongodb.password"));
 
         return dataSource;
     }
