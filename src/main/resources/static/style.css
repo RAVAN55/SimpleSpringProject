@@ -1,0 +1,16 @@
+.greeting{
+    font-size: medium;
+    text-align: center;
+    margin-top: 1em;
+}
+
+.greeting > span{
+    font-style: italic;
+    font-weight: 700;
+}
+
+p{
+    font-size: medium;
+    font-family: sans-serif;
+    text-align: center;
+}

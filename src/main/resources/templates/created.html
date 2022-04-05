@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF status</title>
+    <link href="@{/}">
+</head>
+<body>
+    <h1>Hello <span th:text="${user.getFirstName()}" class="greeting"></span></h1>
+    <p th:text="LastName: ${user.getLastName()}"></p>
+    <p th:text="Gender: ${user.getGender()}"></p>
+    <p th:text="Age: ${user.getAge()}"></p>
+</body>
+</html>
