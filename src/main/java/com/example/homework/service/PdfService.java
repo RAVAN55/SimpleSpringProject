@@ -115,22 +115,4 @@ public class PdfService {
         return pdf;
     }
 
-    public Boolean isUserExist(String name) throws UserNotFoundException {
-
-        /*check if user is available in customer database*/
-        Customer customer = cService.getCustomerByName(name);
-        if (customer == null){
-            throw new UserNotFoundException(String.format("user with name %s is not found",name));
-        }
-
-        /*check if user have any previously created pdf*/
-        Pdf pdf = repository.findByFirstName(name);
-
-        if (pdf != null){
-            return true;
-        }
-
-        return false;
-    }
-
 }
