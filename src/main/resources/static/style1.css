@@ -1,0 +1,17 @@
+.userInfoContainer{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+    padding: 10px;
+}
+
+.userInfoContainer > h2{
+    margin: 8px;
+}
+
+a{
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}

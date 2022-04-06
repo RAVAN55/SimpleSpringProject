@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>PDF status</title>
-    <link href="@{/}">
+    <link rel="stylesheet" th:href="@{/style1.css}">
 </head>
 <body>
-    <h1>Hello <span th:text="${user.getFirstName()}" class="greeting"></span></h1>
-    <p th:text="LastName: ${user.getLastName()}"></p>
-    <p th:text="Gender: ${user.getGender()}"></p>
-    <p th:text="Age: ${user.getAge()}"></p>
+    <div class="userInfoContainer" th:object="${user}">
+        <h2>Hello: <span th:text="*{getFirstName()}" class="greeting"></span></h2>
+        <h2>LastName: <span th:text="*{getLastName()}"></span></h2>
+        <h2>Gender: <span th:text="*{getGender()}"></span></h2>
+        <h2>Age: <span th:text="*{getAge()}"></span></h2>
+    </div>
+
+    <a th:href="@{/} + ${user.getFirstName()} + '.pdf'"> download or view pdf here</a>
 </body>
 </html>

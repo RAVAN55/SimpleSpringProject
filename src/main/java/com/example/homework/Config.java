@@ -2,9 +2,9 @@ package com.example.homework;
 
 import com.example.homework.helpers.Helper;
 
-import com.itextpdf.text.Chunk;
+/* import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.Font;
+import com.itextpdf.text.Font; */
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

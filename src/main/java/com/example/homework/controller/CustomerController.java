@@ -23,8 +23,8 @@ public class CustomerController {
     @Autowired
     private final CustomerService customerService;
 
-    @Autowired
-    private Helper helper;
+/*     @Autowired */
+/*     private Helper helper; */
 
 
     public CustomerController(CustomerService customerService) {

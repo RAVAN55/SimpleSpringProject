@@ -5,6 +5,7 @@ import com.example.homework.pdf.data.Pdf;
 import com.example.homework.service.PdfService;
 import com.itextpdf.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,17 +20,16 @@ public class PdfController {
     private PdfService pdfService;
 
     @GetMapping("/pdf")
-//    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String pdfHomePage(Model model){
-        model.addAttribute("greeting","welcome to the thymeleaf page");
-        return "homepagePdf";
+        model.addAttribute("greeting","welcome to pdf creating form");
+        return "homepage";
     }
 
-    @PostMapping("/pdf")
-    public String createPdf(@RequestBody Pdf pdf, Model model) throws UserAlreadyExistException, DocumentException, FileNotFoundException {
+    @PostMapping(value = "/pdf", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public String createPdf(Pdf pdf, Model model) throws UserAlreadyExistException, DocumentException, FileNotFoundException {
         Pdf returnedPdf = pdfService.createPDF(pdf);
         model.addAttribute("user",returnedPdf);
-        return "pdfGenerated";
+        return "created";
     }
 
 }
