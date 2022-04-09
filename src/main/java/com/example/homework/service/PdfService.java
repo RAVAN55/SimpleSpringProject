@@ -1,23 +1,19 @@
 package com.example.homework.service;
 
-import com.example.homework.customer.data.Customer;
+import com.example.homework.helpers.Helper;
 import com.example.homework.helpers.UserAlreadyExistException;
-import com.example.homework.helpers.UserNotFoundException;
 import com.example.homework.pdf.data.Pdf;
 import com.example.homework.product.repo.PdfRepository;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.Barcode;
 import com.itextpdf.text.pdf.Barcode128;
 import com.itextpdf.text.pdf.PdfWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.List;
+import java.io.IOException;
 
 @Service
 public class PdfService {
@@ -26,18 +22,20 @@ public class PdfService {
     private PdfRepository repository;
 
     @Autowired
+    private Helper helper;
+
+    @Autowired
     private CustomerService cService;
 
     /*we can save this line in application.properties if we want*/
     private static final String pathToStatic = "./src/main/resources/static/";
 
-    Logger log = LoggerFactory.getLogger(PdfService.class);
 
     public PdfService(PdfRepository repository) {
         this.repository = repository;
     }
 
-    public Pdf createPDF(Pdf pdf) throws UserAlreadyExistException, FileNotFoundException, DocumentException {
+    public Pdf createPDF(Pdf pdf) throws UserAlreadyExistException, IOException, DocumentException {
 
         Document document = new Document();
         Font font;
@@ -46,6 +44,7 @@ public class PdfService {
         Image image;
         File file;
 
+/*
         List<Pdf> isUserExist = repository.findAll();
 
         for (Pdf usrPdf : isUserExist){
@@ -53,6 +52,7 @@ public class PdfService {
                 throw new UserAlreadyExistException(String.format("user with name %s is already exist",pdf.getFirstName()));
             }
         }
+*/
 
         file = new File(pathToStatic + pdf.getFirstName() + ".pdf");
 
@@ -108,10 +108,12 @@ public class PdfService {
         image.setAbsolutePosition(40,380);
         image.scalePercent(180,130);
         document.add(image);
-
+/*
         repository.save(pdf);
-
+*/
         document.close();
+        helper.createCSV(pdf);
+        helper.createDOCX(pdf);
         return pdf;
     }
 

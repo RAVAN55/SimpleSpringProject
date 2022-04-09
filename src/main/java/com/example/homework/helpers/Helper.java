@@ -1,5 +1,9 @@
 package com.example.homework.helpers;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Arrays;
@@ -7,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.homework.customer.data.Customer;
+import com.example.homework.pdf.data.Pdf;
 import com.example.homework.product.data.Product;
 import com.example.homework.purchase.data.Purchase;
 import com.example.homework.model.Range;
@@ -14,6 +19,8 @@ import com.example.homework.customer.repo.CustomerRepository;
 import com.example.homework.product.repo.ProductRepository;
 import com.example.homework.purchase.repo.PurchaseRepository;
 
+import com.opencsv.CSVWriter;
+import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -26,6 +33,9 @@ public class Helper {
         "NOVEMBER", "DECEMBER"
     );
 
+    private static final String pathToStatic = "./src/main/resources/static/";
+
+    private File filecsv = new File(pathToStatic + "userData.csv");
 
     @Autowired
     private ProductRepository productRepository;
@@ -173,6 +183,91 @@ public class Helper {
 
         if(range.getEndDate().isAfter(LocalDate.now())){
             throw new InvalidDateException("end date can not be after current date");
+        }
+    }
+
+    public void createCSV(Pdf pdf) throws IOException {
+
+        try{
+
+            FileWriter fwrite = new FileWriter(filecsv,true);
+
+            CSVWriter csvWriter = new CSVWriter(fwrite);
+
+            String userData[] = new String[]{pdf.getFirstName(),pdf.getLastName(),pdf.getGender(),pdf.getAge().toString()};
+
+            csvWriter.writeNext(userData);
+
+            csvWriter.close();
+
+        }catch (IOException e){
+            throw new IOException(e.getMessage());
+        }
+    }
+
+    public void createDOCX(Pdf pdf) throws IOException {
+
+        File filedocx;
+
+        try(XWPFDocument document = new XWPFDocument()){
+
+            filedocx = new File(pathToStatic + pdf.getFirstName() + ".docx");
+
+            /*para can be created by method from the document instance*/
+            XWPFParagraph para = document.createParagraph();
+
+            /*setting about para*/
+            para.setBorderTop(Borders.COMPASS);
+            para.setAlignment(ParagraphAlignment.CENTER);
+
+            /*the XWPFRun is font class you can customize font with that*/
+            XWPFRun paraContentAndStyling = para.createRun();
+            paraContentAndStyling.setCapitalized(true);
+            paraContentAndStyling.setFontSize(18);
+            paraContentAndStyling.setBold(true);
+            paraContentAndStyling.setColor("0E1019");
+            paraContentAndStyling.setText("Hello " + pdf.getFirstName() + " this is your doc file");
+            paraContentAndStyling.setFontFamily("Fira Code");
+
+
+            /*para second*/
+            XWPFParagraph para2 = document.createParagraph();
+            para.setAlignment(ParagraphAlignment.LEFT);
+
+            XWPFRun paraContentAndStyling2 = para2.createRun();
+            paraContentAndStyling2.setFontSize(16);
+            paraContentAndStyling2.setText("LastName: " + pdf.getLastName());
+            paraContentAndStyling2.setFontFamily("Fira Code");
+
+
+            /*para third*/
+            XWPFParagraph para3 = document.createParagraph();
+            para.setAlignment(ParagraphAlignment.LEFT);
+
+            XWPFRun paraContentAndStyling3 = para3.createRun();
+            paraContentAndStyling3.setFontSize(16);
+            paraContentAndStyling3.setText("Gender: " + pdf.getGender());
+            paraContentAndStyling3.setFontFamily("Fira Code");
+
+
+
+            /*para third*/
+            XWPFParagraph para4 = document.createParagraph();
+            para.setAlignment(ParagraphAlignment.LEFT);
+
+            XWPFRun paraContentAndStyling4 = para4.createRun();
+            paraContentAndStyling4.setFontSize(16);
+            paraContentAndStyling4.setText("Age: " + pdf.getAge());
+            paraContentAndStyling4.setFontFamily("Fira Code");
+
+
+            try(FileOutputStream fwri = new FileOutputStream(filedocx)){
+                document.write(fwri);
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

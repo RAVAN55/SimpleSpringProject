@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 
 @Controller
@@ -26,7 +26,7 @@ public class PdfController {
     }
 
     @PostMapping(value = "/pdf", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public String createPdf(Pdf pdf, Model model) throws UserAlreadyExistException, DocumentException, FileNotFoundException {
+    public String createPdf(Pdf pdf, Model model) throws UserAlreadyExistException, DocumentException, IOException {
         Pdf returnedPdf = pdfService.createPDF(pdf);
         model.addAttribute("user",returnedPdf);
         return "created";
