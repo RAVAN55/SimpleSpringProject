@@ -12,7 +12,6 @@ import java.util.Optional;
 
 import com.example.homework.customer.data.Customer;
 import com.example.homework.pdf.data.Pdf;
-import com.example.homework.product.data.Product;
 import com.example.homework.purchase.data.Purchase;
 import com.example.homework.model.Range;
 import com.example.homework.customer.repo.CustomerRepository;
@@ -33,9 +32,9 @@ public class Helper {
         "NOVEMBER", "DECEMBER"
     );
 
-    private static final String pathToStatic = "./src/main/resources/static/";
+    private static final String PATH_TO_STATIC = "./src/main/resources/static/";
 
-    private File filecsv = new File(pathToStatic + "userData.csv");
+    private File filecsv = new File(PATH_TO_STATIC + "userData.csv");
 
     @Autowired
     private ProductRepository productRepository;
@@ -47,6 +46,7 @@ public class Helper {
     private PurchaseRepository purchaseRepository;
 
 
+/*
     public Product isProductExist(String name) throws ProductNotFoundException {
         Product data = productRepository.findByName(name);
 
@@ -56,10 +56,11 @@ public class Helper {
 
         return data;
     }
+*/
 
     public Integer calculateReward(Integer price) {
 
-        Integer fifty;
+        Integer fifty = null;
         Integer total = 0;
 
         if(price > 50){
@@ -110,11 +111,14 @@ public class Helper {
 
     }
 
+/*
     public Integer rewardOfSpecifiedMonthIs(String name, String month, Integer year) {
 
         Customer customer = customerRepository.findByName(name);
 
-        /* we could check if customer exist but we already did that in controller so dont need to do that again */
+        */
+/* we could check if customer exist but we already did that in controller so dont need to do that again *//*
+
 
         LocalDate start = getMonthStart(month,year);
         LocalDate end = getMonthEnd(month,year);
@@ -123,13 +127,14 @@ public class Helper {
 
         return calculateMonthlyReward(rangeData);
     }
+*/
 
     /* method will return 0 if purchase not found in specified date range */
     private Integer calculateMonthlyReward(List<Purchase> rangeData) {
 
         Integer total = 0;
 
-        if(rangeData == null){
+        if(rangeData.isEmpty()){
             return 0;
         }
 
@@ -211,7 +216,7 @@ public class Helper {
 
         try(XWPFDocument document = new XWPFDocument()){
 
-            filedocx = new File(pathToStatic + pdf.getFirstName() + ".docx");
+            filedocx = new File(PATH_TO_STATIC + pdf.getFirstName() + ".docx");
 
             /*para can be created by method from the document instance*/
             XWPFParagraph para = document.createParagraph();

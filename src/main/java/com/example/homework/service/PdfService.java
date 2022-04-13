@@ -1,7 +1,6 @@
 package com.example.homework.service;
 
 import com.example.homework.helpers.Helper;
-import com.example.homework.helpers.UserAlreadyExistException;
 import com.example.homework.pdf.data.Pdf;
 import com.example.homework.product.repo.PdfRepository;
 import com.itextpdf.text.*;
@@ -28,22 +27,19 @@ public class PdfService {
     private CustomerService cService;
 
     /*we can save this line in application.properties if we want*/
-    private static final String pathToStatic = "./src/main/resources/static/";
+    private static final String PATH_TO_STATIC = "./src/main/resources/static/";
 
 
-    public PdfService(PdfRepository repository) {
-        this.repository = repository;
-    }
-
-    public Pdf createPDF(Pdf pdf) throws UserAlreadyExistException, IOException, DocumentException {
+    public Pdf createPDF(Pdf pdf) throws IOException, DocumentException {
 
         Document document = new Document();
-        Font font;
-        Chunk chunk;
+        Font font = null;
+        Chunk chunk = null;
         Barcode128 barcode128 = new Barcode128();
-        Image image;
-        File file;
+        Image image = null;
+        File file = null;
 
+        /*the below commented code is to check if pdf of user is already exist*/
 /*
         List<Pdf> isUserExist = repository.findAll();
 
@@ -54,7 +50,7 @@ public class PdfService {
         }
 */
 
-        file = new File(pathToStatic + pdf.getFirstName() + ".pdf");
+        file = new File(PATH_TO_STATIC + pdf.getFirstName() + ".pdf");
 
         PdfWriter pdfWriter = PdfWriter.getInstance(document,new FileOutputStream(file));
         document.open();

@@ -1,6 +1,5 @@
 package com.example.homework.controller;
 
-import com.example.homework.helpers.UserAlreadyExistException;
 import com.example.homework.pdf.data.Pdf;
 import com.example.homework.service.PdfService;
 import com.itextpdf.text.DocumentException;
@@ -26,7 +25,7 @@ public class PdfController {
     }
 
     @PostMapping(value = "/pdf", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public String createPdf(Pdf pdf, Model model) throws UserAlreadyExistException, DocumentException, IOException {
+    public String createPdf(Pdf pdf, Model model) throws DocumentException, IOException {
         Pdf returnedPdf = pdfService.createPDF(pdf);
         model.addAttribute("user",returnedPdf);
         return "created";
