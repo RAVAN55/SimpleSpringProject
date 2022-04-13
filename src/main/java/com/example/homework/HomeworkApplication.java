@@ -9,8 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-//@ComponentScan(basePackages = {"com.example.homework"})
-//@EnableJpaRepositories("")
 @EntityScan
 public class HomeworkApplication{
 
