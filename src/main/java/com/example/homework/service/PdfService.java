@@ -1,6 +1,8 @@
 package com.example.homework.service;
 
+import com.example.homework.customer.data.Customer;
 import com.example.homework.helpers.Helper;
+import com.example.homework.helpers.UserNotFoundException;
 import com.example.homework.pdf.data.Pdf;
 import com.example.homework.product.repo.PdfRepository;
 import com.itextpdf.text.*;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.rmi.UnexpectedException;
+import java.util.Base64;
 
 @Service
 public class PdfService {
@@ -30,7 +34,7 @@ public class PdfService {
     private static final String PATH_TO_STATIC = "./src/main/resources/static/";
 
 
-    public Pdf createPDF(Pdf pdf) throws IOException, DocumentException {
+    public Pdf createPDF(Pdf pdf) throws IOException, DocumentException, UserNotFoundException {
 
         Document document = new Document();
         Font font = null;
@@ -110,7 +114,43 @@ public class PdfService {
         document.close();
         helper.createCSV(pdf);
         helper.createDOCX(pdf);
+        helper.createBinaryOfPdfAndSave(pdf.getFirstName());
         return pdf;
     }
 
+    public String getPdforUser(String name) throws UserNotFoundException, IOException {
+
+        File file = new File(PATH_TO_STATIC + name + ".pdf");
+        FileOutputStream fout = null;
+
+        Customer customer = cService.getCustomerByName(name);
+
+        if(customer == null){
+            throw new UserNotFoundException(String.format("user with name %s not found",name));
+        }
+
+        String pdfBinary = customer.getPdfbinary();
+
+        if (pdfBinary == null){
+            throw new UnexpectedException(String.format("pdf for user %s is not created yet",name));
+        }
+
+        try{
+            fout = new FileOutputStream(file);
+
+            byte pdfBinaryInByte[] = Base64.getDecoder().decode(pdfBinary);
+
+            fout.write(pdfBinaryInByte);
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            if(fout != null){
+                fout.close();
+            }
+        }
+
+        return name;
+
+    }
 }

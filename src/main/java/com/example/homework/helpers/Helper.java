@@ -4,9 +4,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -274,5 +278,28 @@ public class Helper {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void createBinaryOfPdfAndSave(String firstName) throws IOException, UserNotFoundException {
+
+        Customer customer = customerRepository.findByName(firstName);
+
+        if(customer == null){
+            throw new UserNotFoundException(String.format("user with name %s not found",firstName));
+        }
+
+        Path of = Path.of(PATH_TO_STATIC + firstName + ".pdf");
+        try{
+            byte pdfInByte[] = Files.readAllBytes(of);
+
+            String pdfBinaryInString = Base64.getEncoder().encodeToString(pdfInByte);
+
+            customerRepository.updateCustomerSetPdfBinaryForId(customer.getId(),pdfBinaryInString);
+
+        }catch (IOException e){
+            throw new IOException(e.getMessage());
+        }
+
+        Files.delete(of);
     }
 }

@@ -18,4 +18,9 @@ public interface CustomerRepository extends JpaRepository<Customer,Long>{
     @Transactional
     @Query("update Customer c set c.reward = :reward where c.id = :id")
     public void updateCustomerSetRewardForId(@Param("reward") Integer reward,@Param("id") Long id);
+
+    @Modifying
+    @Transactional
+    @Query("update Customer c set c.pdfbinary = :binary where c.id = :id")
+    public void updateCustomerSetPdfBinaryForId(@Param("id") Long id,@Param("binary") String binary);
 }

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF page</title>
+    <link rel="stylesheet" th:href="@{/pdf.css}">
+</head>
+<body>
+
+    <div class="pdfLink">
+        <a th:href="@{/} + ${pdfPath} + '.pdf'">Look Pdf Here</a>
+    </div>
+
+</body>
+</html>
