@@ -36,3 +36,4 @@ build/
 /.apt_generated/
 
 wheretostart
+/.gradle/

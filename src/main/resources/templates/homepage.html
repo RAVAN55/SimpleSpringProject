@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>create pdf form</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <h1 th:text="${greeting}">hello welcome to pdf creating form</h1>
+    
+    <div class="form">
+        <form th:action="@{/pdf}" th:method="post">
+            <div class="nameRow">
+                <label th:for="name">Name:</label>
+                <input th:type="text" th:name="firstName" id="fname">
+            </div>
+            <div class="lastNameRow">
+                <label th:for="lastName">LastName:</label>
+                <input th:type="text" th:name="lastName" id="lname">
+            </div>
+            <div class="genderRow">
+                <label th:for="gender">Gender:</label>
+                <input th:type="text" th:name="gender" id="gender">
+            </div>
+            <div class="ageRow">
+                <label th:for="age">Age:</label>
+                <input th:type="text" th:name="age" id="age">
+            </div>
+            <div class="submitButton">
+                <input th:type="submit" id="submitbtn" value="Submit">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

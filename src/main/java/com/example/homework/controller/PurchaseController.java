@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/purchase")
 public class PurchaseController {
 
-    @Autowired
-    private PurchaseRepository purchaseRepository;
+/*     @Autowired
+    private PurchaseRepository purchaseRepository; */
 
     @Autowired
     private CustomerService customerService;
@@ -39,7 +39,7 @@ public class PurchaseController {
 
 
     public PurchaseController(PurchaseRepository purchaseRepository, PurchaseService purchaseService, CustomerService customerService,Helper helper) {
-        this.purchaseRepository = purchaseRepository;
+/*         this.purchaseRepository = purchaseRepository; */
         this.purchaseService = purchaseService;
         this.customerService = customerService;
         this.helper = helper;

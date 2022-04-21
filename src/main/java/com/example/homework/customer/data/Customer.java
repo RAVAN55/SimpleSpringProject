@@ -16,7 +16,8 @@ public class Customer {
     private String phone;
 
     private Integer reward;
-    
+
+    private String pdfbinary;
 
     public Customer() {
     }
@@ -80,5 +81,9 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer [age=" + age + ", gender=" + gender + ", id=" + id + ", name=" + name + ", phone=" + phone + ", reward=" + reward + "]";
+    }
+
+    public String getPdfbinary() {
+        return pdfbinary;
     }
 }

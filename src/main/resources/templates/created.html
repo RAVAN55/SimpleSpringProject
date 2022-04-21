@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF status</title>
+    <link rel="stylesheet" th:href="@{/style1.css}">
+</head>
+<body>
+    <div class="userInfoContainer" th:object="${user}">
+        <h2>Hello: <span th:text="*{getFirstName}" class="greeting"></span></h2>
+        <h2>LastName: <span th:text="*{getLastName}"></span></h2>
+        <h2>Gender: <span th:text="*{getGender}"></span></h2>
+        <h2>Age: <span th:text="*{getAge}"></span></h2>
+    </div>
+
+</body>
+</html>
